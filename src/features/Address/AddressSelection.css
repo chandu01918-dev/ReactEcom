@@ -1,0 +1,301 @@
+.addr-wrapper {
+  
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+  
+}
+
+.addr-steps {
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  color: #555;
+}
+
+.circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #bbb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.circle.active {
+  background: #5331ec;
+  color: #fff;
+  border: none;
+}
+
+.circle.done {
+  background: #3d48ed;
+  color: #fff;
+  border: none;
+}
+
+.line {
+  flex: 1;
+  height: 2px;
+  background: #ccc;
+  margin: 0 8px;
+  margin-bottom: 18px;
+}
+
+.addr-container {
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  gap: 25px;
+}
+
+.addr-left {
+  flex: 2;
+}
+
+.addr-right {
+  flex: 1;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #e2e2e2;
+}
+
+.addr-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.addr-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+}
+
+.addr-default-label {
+  margin-top: 12px;
+  font-size: 12px;
+  color: #999;
+  letter-spacing: 0.5px;
+}
+
+.addr-card {
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 12px;
+}
+
+.addr-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.addr-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.addr-name-row strong {
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+}
+
+.addr-tag {
+  background: #e6f4ea;
+  color: #2e7d32;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.addr-details {
+  margin-left: 28px;
+  margin-top: 10px;
+}
+
+.addr-details p {
+  margin: 3px 0;
+  font-size: 14px;
+  color: #444;
+  line-height: 1.4;
+}
+
+.addr-light {
+  color: #777;
+  font-size: 13px;
+}
+
+.addr-phone {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #222;
+}
+
+.addr-cod {
+  font-size: 13px;
+  color: #888;
+}
+
+.addr-actions {
+  margin-left: 28px;
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+}
+
+.addr-primary-btn {
+  background: linear-gradient(90deg,  #4e3bf8);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.addr-small {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.addr-full {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.addr-actions button:first-child {
+  background: #444ded;
+  color: white;
+  border: none;
+}
+
+.addr-actions button:last-child {
+  border: 1px solid #4b2e83;
+  background: white;
+  color: #4b2e83;
+}
+
+.addr-outline-btn {
+  padding: 6px 16px;
+  font-size: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.addr-right h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+}
+
+.addr-date {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.addr-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.addr-row span {
+  font-size: 14px;
+  color: #333;
+}
+
+.addr-discount {
+  color: green;
+}
+
+.addr-total {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.addr-save {
+  font-size: 13px;
+  color: green;
+}
+
+.addr-add-new {
+  margin-top: 15px;
+  color: #614de3;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.confirm-box {
+  background: #fff;
+  padding: 24px;
+  border-radius: 10px;
+  width: 320px;
+  max-width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  animation: popupFade 0.2s ease;
+}
+
+.confirm-box p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.confirm-actions button {
+  flex: 1;
+}
+
+@keyframes popupFade {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

@@ -1,0 +1,184 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f7fb;
+  color: #222;
+}
+
+.table-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.table-container h1 {
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.back-btn {
+  margin-bottom: 20px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  background: #6366f1;
+  color: white;
+  cursor: pointer;
+}
+
+.back-btn:hover {
+  background: #4f46e5;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.filters select,
+.filters input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  min-width: 150px;
+  background: rgb(242, 242, 244);
+}
+
+.filters select:focus,
+.filters input:focus {
+  border-color: #6366f1;
+}
+
+.search-box {
+  flex: 1;
+  min-width: 200px;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+thead {
+  background: #6366f1;
+}
+
+thead th {
+  text-align: left;
+  padding: 12px;
+  font-size: 14px;
+  color: #fafafa;
+}
+
+thead th:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+thead th:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+
+tbody tr {
+  border-top: 1px solid #eee;
+  transition: 0.2s;
+}
+
+tbody tr:hover {
+  background: #fafbff;
+}
+
+td {
+  padding: 12px;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+td img {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+}
+
+td:nth-child(3) {
+  color: #666;
+  max-width: 250px;
+}
+
+td:nth-child(4) {
+  font-weight: 600;
+}
+
+.cart-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: none;
+  background: rgb(92, 53, 219);
+  color: white;
+  cursor: pointer;
+}
+
+.cart-btn:hover {
+  background: #333;
+}
+
+.cart-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+  }
+
+  .filters select,
+  .filters input {
+    width: 100%;
+  }
+
+  table,
+  thead,
+  tbody,
+  tr,
+  td,
+  th {
+    display: block;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr {
+    background: white;
+    margin-bottom: 12px;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+  }
+
+  td img {
+    margin: auto;
+  }
+}

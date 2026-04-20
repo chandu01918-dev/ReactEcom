@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteAddress } from "./addressSlice";
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+
 import "./AddressSelection.css";
 
 export default function AddressSelection() {
@@ -12,6 +13,9 @@ export default function AddressSelection() {
 
   const [selectedId, setSelectedId] = useState(null);
   const [confirmId, setConfirmId] = useState(null);
+  
+
+  const selectedAddress = addresses.find((a) => a.id === selectedId);
 
   const deliveryDate = useMemo(() => {
     const baseDays = 2;
@@ -31,7 +35,7 @@ export default function AddressSelection() {
   }, [cartItems]);
 
   const discount = useMemo(() => {
-    return Math.floor(price * 0.1);
+    return Math.floor(price * 0.5);
   }, [price]);
 
   const platformFee = useMemo(() => {
@@ -46,6 +50,8 @@ export default function AddressSelection() {
     dispatch(deleteAddress(confirmId));
     setConfirmId(null);
   };
+
+  
 
   return (
     <div className="addr-wrapper">
@@ -76,11 +82,13 @@ export default function AddressSelection() {
           <p>Order Confirm</p>
         </div>
       </div>
+
       <div className="nav-buttons">
         <button className="back-btn" onClick={() => navigate("/cart")}>
           Back to My Cart
         </button>
-        </div>
+      </div>
+
       <div className="addr-container">
         <div className="addr-left">
           <div className="addr-header">
@@ -129,7 +137,9 @@ export default function AddressSelection() {
 
                 <button
                   className="addr-outline-btn"
-                  onClick={() => navigate("/address-book", { state: { address: a } })}
+                  onClick={() =>
+                    navigate("/address-book", { state: { address: a } })
+                  }
                 >
                   EDIT
                 </button>
@@ -173,9 +183,16 @@ export default function AddressSelection() {
 
           <p className="addr-save">You will save ₹{discount}</p>
 
-          <button className="addr-primary-btn addr-full">
-            
-           Continue
+          <button
+            className="addr-primary-btn addr-full"
+            disabled={!selectedId || cartItems.length === 0}
+            onClick={() => {
+              if (!selectedId) return;
+              if (cartItems.length === 0) return;
+              navigate("/payment", { state: { address: selectedAddress } });
+            }}
+          >
+            Continue
           </button>
         </div>
       </div>

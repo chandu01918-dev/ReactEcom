@@ -8,6 +8,8 @@ import ProductTable from "../features/products/ProductTable";
 import CartPage from "../features/cart/CartPage";
 import AddressBook from "../features/Address/AddressBook";
 import AddressSelection from "../features/Address/AddressSelection";
+import PaymentPage  from "../features/Payment/PaymentPage";
+import OrderConfirmPage from "../features/OrderConfirmation/OrderConfirmPage";
 
 export default function AppRouter() {
   const { user } = useSelector((state) => state.auth);
@@ -30,10 +32,15 @@ export default function AppRouter() {
         <Route path="/cart" element={<CartPage />} />
         <Route path="/address-book" element={<AddressBook />} />
         <Route path="/address" element={<AddressSelection />} />
+        <Route path="/payment" element={<PaymentPage  />} />
+        <Route path="/orderconfirm" element={<OrderConfirmPage />} />
+        
+        
+        
 
       </Route>
 
-      <Route path="*" element={<Navigate to="/" />} />
+      
 
     </Routes>
   );

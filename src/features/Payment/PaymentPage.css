@@ -1,0 +1,97 @@
+.payment-layout {
+  padding: 30px;
+  background: #f6f6f8;
+}
+
+.payment-card {
+  display: grid;
+  grid-template-columns: 260px 1fr 280px;
+  gap: 20px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.payment-left {
+  width: 100%;
+}
+
+.payment-middle {
+  width: 100%;
+}
+
+.payment-summary-inside {
+  width: 100%;
+  background: #fafafa;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #e6e6e6;
+}
+
+.pay-option {
+  padding: 14px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.pay-option.active {
+  background: linear-gradient(to right, #5a0f6b, #8b2bbd);
+  color: #fff;
+  border: none;
+}
+
+.radio-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 18px 0;
+}
+
+.note {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.continue-btn {
+  padding: 12px;
+  width: 220px;
+  border: none;
+  background: linear-gradient(to right, #5a0f6b, #8b2bbd);
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin: 8px 0;
+}
+
+.summary-row.discount {
+  color: green;
+}
+
+.divider {
+  height: 1px;
+  background: #eee;
+  margin: 12px 0;
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.summary-save {
+  font-size: 12px;
+  color: green;
+  margin-top: 6px;
+}

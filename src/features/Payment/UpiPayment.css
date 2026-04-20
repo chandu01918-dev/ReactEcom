@@ -1,0 +1,81 @@
+.upi-container {
+  width: 100%;
+}
+
+.upi-radio {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.upi-apps{
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+ 
+.upi-app {
+  width: 64px;
+  height: 52px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+ 
+.upi-app img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+ 
+ 
+
+.upi-app.active {
+  border: 2px solid #5b2d90;
+  box-shadow: 0 0 6px rgba(91, 45, 144, 0.4);
+}
+
+.upi-or {
+  text-align: center;
+  margin: 10px 0;
+  color: #777;
+}
+
+.upi-input {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.upi-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.upi-input button {
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.upi-pay-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(to right, #5b2d90, #2e0f4f);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.upi-pay-btn:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}

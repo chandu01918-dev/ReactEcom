@@ -76,7 +76,7 @@ export default function Sidebar({ ranges, selected, setSelected }) {
             </div>
 
             <button
-              className="continue-btn"
+              className="continue-butn"
               onClick={() => navigate("/cart")}
             >
               Go To Cart Page

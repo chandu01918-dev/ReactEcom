@@ -288,6 +288,17 @@
 .confirm-actions button {
   flex: 1;
 }
+.addr-primary-btn:disabled {
+  background: linear-gradient(to right, #cfcfcf, #e0e0e0);
+  color: #888;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+.addr-primary-btn:disabled:hover {
+  transform: none;
+}
 
 @keyframes popupFade {
   from {

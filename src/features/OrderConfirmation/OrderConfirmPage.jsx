@@ -75,14 +75,14 @@ export default function OrderConfirm() {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate("/");
-    }, 3000);
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, [navigate]);
 
   const getPaymentText = () => {
     if (method === "COD") {
-      return `COD - Cash on Delivery\nPay ₹${totalAmount} when your order is delivered`;
+      return `Cash on Delivery\nPay ₹${totalAmount} on delivery`;
     }
     if (method === "UPI") return "Paid via UPI";
     if (method === "CARD") return "Paid using Card";
@@ -115,14 +115,14 @@ export default function OrderConfirm() {
         <div className="line"></div>
 
         <div className="step active">
-          <div className="circle active">3</div>
+          <div className="circle done">3</div>
           <p>Payment</p>
         </div>
 
         <div className="line"></div>
 
-        <div className="step">
-          <div className="circle">4</div>
+        <div className="step active">
+          <div className="circle active">4</div>
           <p>Order Confirm</p>
         </div>
       </div>
@@ -130,33 +130,36 @@ export default function OrderConfirm() {
       <div className="oc-wrapper">
         <div className="oc-card">
 
-          <h2>Thank you for Your Order</h2>
-          <h3>Order ID # {orderId}</h3>
+          <div className="success-icon">✓</div>
+
+          <h2>Payment Successful</h2>
+          <h3>Your order has been confirmed successfully</h3>
+          <h4>Order ID # {orderId}</h4>
 
           <div className="oc-progress">
 
-            <div className={`oc-step ${isActive("PLACED") ? "active" : ""}`}>
+            <div className="oc-step">
               <div className={`oc-circle ${isActive("PLACED") ? "active" : ""}`}></div>
               <p>Order Placed</p>
             </div>
 
             <div className="oc-line"></div>
 
-            <div className={`oc-step ${isActive("PROCESSING") ? "active" : ""}`}>
+            <div className="oc-step">
               <div className={`oc-circle ${isActive("PROCESSING") ? "active" : ""}`}></div>
               <p>Processing</p>
             </div>
 
             <div className="oc-line"></div>
 
-            <div className={`oc-step ${isActive("SHIPPED") ? "active" : ""}`}>
+            <div className="oc-step">
               <div className={`oc-circle ${isActive("SHIPPED") ? "active" : ""}`}></div>
               <p>Shipped</p>
             </div>
 
             <div className="oc-line"></div>
 
-            <div className={`oc-step ${isActive("DELIVERED") ? "active" : ""}`}>
+            <div className="oc-step">
               <div className={`oc-circle ${isActive("DELIVERED") ? "active" : ""}`}></div>
               <p>Delivered</p>
             </div>
@@ -172,8 +175,8 @@ export default function OrderConfirm() {
             <div className="oc-grid">
 
               <div>
-                <h4>Order Placed</h4>
-                <p>Arrived by {displayDate}</p>
+                <h4>Order Details</h4>
+                <p>Delivery by {displayDate}</p>
                 <p>Order ID # {orderId}</p>
               </div>
 

@@ -1,69 +1,159 @@
-.oc-wrapper {
-  padding: 30px;
-  background: #f5f5f5;
+.addr-wrapper {
+  padding: 40px 20px;
+  background: #f5f7fb;
   min-height: 100vh;
 }
 
+.addr-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.step {
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+}
+
+.circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #dcdcdc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 6px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.circle.done,
+.circle.active {
+  background: #6c4cff;
+}
+
+.line {
+  width: 120px;
+  height: 2px;
+  background: #dcdcdc;
+  margin: 0 10px;
+}
+
+.oc-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
 .oc-card {
-  max-width: 900px;
-  margin: auto;
-  background: white;
-  padding: 25px;
-  border-radius: 12px;
-  border: 1px solid #ddd;
+  width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 14px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  background: #22c55e;
+  color: #fff;
+  font-size: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.oc-card h2 {
+  font-size: 26px;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.oc-card h3 {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.oc-card h4 {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 25px;
+  letter-spacing: 0.5px;
 }
 
 .oc-progress {
   display: flex;
   align-items: center;
-  margin: 20px 0;
+  justify-content: center;
+  margin: 30px 0;
 }
 
 .oc-step {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 120px;
 }
 
 .oc-circle {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  border: 2px solid #bbb;
-  margin: auto;
+  background: #ccc;
+  margin-bottom: 8px;
 }
 
 .oc-circle.active {
-  background: #5b2d90;
-  border: none;
+  background: #6c4cff;
 }
 
 .oc-line {
-  flex: 1;
+  width: 100px;
   height: 2px;
-  background: #ccc;
+  background: #ddd;
 }
 
 .oc-step p {
-  font-size: 12px;
-  margin-top: 5px;
+  font-size: 13px;
+  color: #666;
 }
 
 .oc-info-box {
-  margin-top: 20px;
-  border: 1px solid #eee;
-  border-radius: 10px;
-  padding: 20px;
+  background: #fafafa;
+  border-radius: 12px;
+  padding: 25px;
+  text-align: left;
 }
 
 .oc-subtitle {
-  margin-bottom: 15px;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
 }
 
 .oc-grid {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 20px;
 }
 
-.oc-grid div {
-  width: 45%;
+.oc-grid h4 {
+  font-size: 15px;
+  margin-bottom: 8px;
+  color: #222;
+}
+
+.oc-grid p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
 }

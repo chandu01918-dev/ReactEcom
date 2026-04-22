@@ -49,6 +49,8 @@ export default function PaymentPage() {
   }, [price, discount, platformFee, codFee]);
 
   const handleOrder = () => {
+    if (!address || cartItems.length === 0) return;
+
     navigate("/orderconfirm", {
       state: {
         method,
@@ -63,35 +65,59 @@ export default function PaymentPage() {
     <div className="addr-wrapper">
 
       <div className="addr-steps">
-        <div className="step active">
+        <div
+          className="step active"
+          onClick={() => {
+            if (cartItems.length === 0) return;
+            navigate("/cart");
+          }}
+        >
           <div className="circle done">1</div>
           <p>My Cart</p>
         </div>
 
         <div className="line"></div>
 
-        <div className="step active">
+        <div
+          className="step active"
+          onClick={() => navigate("/address")}
+        >
           <div className="circle done">2</div>
           <p>Address</p>
         </div>
 
         <div className="line"></div>
 
-        <div className="step active">
+        <div
+          className="step active"
+          onClick={() => {
+            if (!address) return;
+            navigate("/payment", { state: { address } });
+          }}
+        >
           <div className="circle active">3</div>
           <p>Payment</p>
         </div>
 
         <div className="line"></div>
 
-        <div className="step">
+        <div
+          className="step"
+          onClick={() => {
+            if (!address || cartItems.length === 0) return;
+            handleOrder();
+          }}
+        >
           <div className="circle">4</div>
           <p>Order Confirm</p>
         </div>
       </div>
 
       <div className="nav-buttons">
-        <button className="back-btn" onClick={() => navigate("/address")}>
+        <button
+          className="back-btn"
+          onClick={() => navigate("/address")}
+        >
           Back to Address
         </button>
       </div>
@@ -102,19 +128,31 @@ export default function PaymentPage() {
           <div className="payment-left">
             <h3>Choose Payment Mode</h3><br />
 
-            <div className={`pay-option ${method === "COD" ? "active" : ""}`} onClick={() => setMethod("COD")}>
+            <div
+              className={`pay-option ${method === "COD" ? "active" : ""}`}
+              onClick={() => setMethod("COD")}
+            >
               Cash On Delivery
             </div>
 
-            <div className={`pay-option ${method === "UPI" ? "active" : ""}`} onClick={() => setMethod("UPI")}>
+            <div
+              className={`pay-option ${method === "UPI" ? "active" : ""}`}
+              onClick={() => setMethod("UPI")}
+            >
               UPI (Pay Via Any App)
             </div>
 
-            <div className={`pay-option ${method === "CARD" ? "active" : ""}`} onClick={() => setMethod("CARD")}>
+            <div
+              className={`pay-option ${method === "CARD" ? "active" : ""}`}
+              onClick={() => setMethod("CARD")}
+            >
               Credit / Debit Cards
             </div>
 
-            <div className={`pay-option ${method === "EMI" ? "active" : ""}`} onClick={() => setMethod("EMI")}>
+            <div
+              className={`pay-option ${method === "EMI" ? "active" : ""}`}
+              onClick={() => setMethod("EMI")}
+            >
               EMI
             </div>
           </div>

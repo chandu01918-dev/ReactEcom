@@ -13,7 +13,6 @@ export default function AddressSelection() {
 
   const [selectedId, setSelectedId] = useState(null);
   const [confirmId, setConfirmId] = useState(null);
-  
 
   const selectedAddress = addresses.find((a) => a.id === selectedId);
 
@@ -51,12 +50,10 @@ export default function AddressSelection() {
     setConfirmId(null);
   };
 
-  
-
   return (
     <div className="addr-wrapper">
       <div className="addr-steps">
-        <div className="step active">
+        <div className="step active" onClick={() => navigate("/cart")}>
           <div className="circle done">1</div>
           <p>My Cart</p>
         </div>
@@ -84,7 +81,10 @@ export default function AddressSelection() {
       </div>
 
       <div className="nav-buttons">
-        <button className="back-btn" onClick={() => navigate("/cart")}>
+        <button
+          className="back-btn"
+          onClick={() => navigate("/cart")}
+        >
           Back to My Cart
         </button>
       </div>
@@ -123,7 +123,9 @@ export default function AddressSelection() {
                 <p>{a.house}, {a.street}</p>
                 <p>{a.city} - {a.pincode}</p>
                 <p className="addr-light">{a.district}, {a.state}</p>
-                <p className="addr-phone"><strong>Mobile:</strong> {a.phone}</p>
+                <p className="addr-phone">
+                  <strong>Mobile:</strong> {a.phone}
+                </p>
                 <p className="addr-cod">Cash on Delivery available</p>
               </div>
 
@@ -161,27 +163,27 @@ export default function AddressSelection() {
 
           <div className="addr-row">
             <span>Price ({cartItems.length} items)</span>
-            <span>₹{price}</span>
+            <span>₹{price.toFixed(2)}</span>
           </div>
 
           <div className="addr-row addr-discount">
             <span>Discount (10%)</span>
-            <span>- ₹{discount}</span>
+            <span>- ₹{discount.toFixed(2)}</span>
           </div>
 
           <div className="addr-row">
             <span>Delivary Fee</span>
-            <span>₹{platformFee}</span>
+            <span>₹{platformFee.toFixed(2)}</span>
           </div>
 
           <hr />
 
           <div className="addr-total">
             <strong>Total Amount</strong>
-            <strong>₹{totalAmount}</strong>
+            <strong>₹{totalAmount.toFixed(2)}</strong>
           </div>
 
-          <p className="addr-save">You will save ₹{discount}</p>
+          <p className="addr-save">You will save ₹{discount.toFixed(2)}</p>
 
           <button
             className="addr-primary-btn addr-full"

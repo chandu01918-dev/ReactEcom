@@ -35,7 +35,7 @@ export default function PaymentPage() {
   }, [cartItems]);
 
   const discount = useMemo(() => {
-    return Number((price * 0.3).toFixed(2));
+    return Number((price * 0.1).toFixed(2));
   }, [price]);
 
   const platformFee = useMemo(() => {
@@ -216,7 +216,7 @@ export default function PaymentPage() {
             </div>
 
             <div className="summary-row discount">
-              <span>Discount (30%)</span>
+              <span>Discount (10%)</span>
               <span>- ₹{discount.toFixed(2)}</span>
             </div>
 

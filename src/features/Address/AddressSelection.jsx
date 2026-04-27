@@ -2,7 +2,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteAddress } from "./addressSlice";
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-
 import "./AddressSelection.css";
 
 export default function AddressSelection() {
@@ -17,24 +16,24 @@ export default function AddressSelection() {
   const selectedAddress = addresses.find((a) => a.id === selectedId);
 
   const deliveryDate = useMemo(() => {
-    const baseDays = 2;
-    const extraDays = cartItems.length > 3 ? 2 : cartItems.length > 1 ? 1 : 0;
-    const totalDays = baseDays + extraDays;
     const date = new Date();
-    date.setDate(date.getDate() + totalDays);
+    date.setDate(date.getDate() + 1);
     return date.toLocaleDateString("en-GB", {
       day: "2-digit",
       month: "short",
       year: "numeric",
     });
-  }, [cartItems]);
+  }, []);
 
   const price = useMemo(() => {
-    return cartItems.reduce((acc, item) => acc + (item.price || 0), 0);
+    return cartItems.reduce(
+      (acc, item) => acc + (item.price || 0) * (item.quantity || 1),
+      0
+    );
   }, [cartItems]);
 
   const discount = useMemo(() => {
-    return Math.floor(price * 0.5);
+    return price * 0.1;
   }, [price]);
 
   const platformFee = useMemo(() => {
@@ -81,10 +80,7 @@ export default function AddressSelection() {
       </div>
 
       <div className="nav-buttons">
-        <button
-          className="back-btn"
-          onClick={() => navigate("/cart")}
-        >
+        <button className="back-btn" onClick={() => navigate("/cart")}>
           Back to My Cart
         </button>
       </div>
@@ -158,7 +154,7 @@ export default function AddressSelection() {
         </div>
 
         <div className="addr-right">
-          <h4>ESTIMATES DELIVERY TIME</h4>
+          <h4>ESTIMATED DELIVERY TIME</h4>
           <p className="addr-date">{deliveryDate}</p>
 
           <div className="addr-row">
@@ -172,7 +168,7 @@ export default function AddressSelection() {
           </div>
 
           <div className="addr-row">
-            <span>Delivary Fee</span>
+            <span>Delivery Fee</span>
             <span>₹{platformFee.toFixed(2)}</span>
           </div>
 
@@ -189,9 +185,18 @@ export default function AddressSelection() {
             className="addr-primary-btn addr-full"
             disabled={!selectedId || cartItems.length === 0}
             onClick={() => {
-              if (!selectedId) return;
-              if (cartItems.length === 0) return;
-              navigate("/payment", { state: { address: selectedAddress } });
+              if (!selectedId || cartItems.length === 0) return;
+              navigate("/payment", {
+                state: {
+                  address: selectedAddress,
+                  deliveryDate,
+                  cartItems,
+                  price,
+                  discount,
+                  platformFee,
+                  totalAmount,
+                },
+              });
             }}
           >
             Continue

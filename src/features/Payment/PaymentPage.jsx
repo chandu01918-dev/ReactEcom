@@ -17,7 +17,7 @@ export default function PaymentPage() {
   const deliveryDate = useMemo(() => {
     const baseDays = 2;
     const extraDays =
-      cartItems.length > 3 ? 2 : cartItems.length > 1 ? 1 : 0;
+    cartItems.length > 3 ? 2 : cartItems.length > 1 ? 1 : 0;
     const totalDays = baseDays + extraDays;
     const date = new Date();
     date.setDate(date.getDate() + totalDays);

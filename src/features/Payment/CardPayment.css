@@ -51,4 +51,18 @@
 .card-pay-btn:disabled {
   background: #aaa;
 }
+.error {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: 4px;
+}
 
+.input-error {
+  border: 1px solid #d32f2f !important;
+  background-color: #fff5f5;
+}
+
+.input-error:focus {
+  border-color: #d32f2f !important;
+  box-shadow: 0 0 0 1px #d32f2f;
+}

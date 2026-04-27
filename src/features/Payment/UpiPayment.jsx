@@ -10,6 +10,7 @@ export default function UpiPayment({ onPay }) {
     setSelectedApp(app);
     setVerified(false);
   };
+  
 
   const verifyUpi = () => {
     if (upiId.includes("@") && upiId.length > 5) {

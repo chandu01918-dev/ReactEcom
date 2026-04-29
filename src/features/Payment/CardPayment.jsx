@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./CardPayment.css";
-
 export default function CardPayment({
   onPay,
   deliveryDate,
@@ -17,7 +16,7 @@ export default function CardPayment({
   const [errors, setErrors] = useState({});
 
   const validate = () => {
-    const newErrors = {};
+  const newErrors = {};
 
     if (!/^\d{16}$/.test(cardNumber)) {
       newErrors.cardNumber = "Card number must be 16 digits";

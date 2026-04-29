@@ -39,7 +39,7 @@ export default function EmiPayment({
   const totalPayable = emi * (selectedPlan || 0);
 
   return (
-    <div className="emi-layout">
+    <div className="emi-layout">hj
 
       <div className="emi-left">
         <h3>EMI Options</h3>

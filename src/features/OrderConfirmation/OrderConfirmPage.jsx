@@ -13,6 +13,7 @@ export default function OrderConfirm() {
   const generateOrderId = () => {
     const num = Math.floor(100000 + Math.random() * 900000);
     return `ORD${num}`;
+
   };
 
   const [orderId, setOrderId] = useState("");
@@ -75,7 +76,7 @@ export default function OrderConfirm() {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate("/");
-    }, 5000);
+    }, 20000);
 
     return () => clearTimeout(timer);
   }, [navigate]);

@@ -51,6 +51,7 @@ export default function AddressBook() {
 
     if (field === "pincode" && /^[0-9]{6}$/.test(value)) {
       fetch(`https://api.postalpincode.in/pincode/${value}`)
+      
         .then((res) => res.json())
         .then((data) => {
           if (data[0].Status === "Success") {

@@ -45,6 +45,7 @@
 .oc-wrapper {
   display: flex;
   justify-content: center;
+  padding:20px;
 }
 
 .oc-card {
@@ -132,6 +133,10 @@
   padding: 25px;
   text-align: left;
 }
+.back-btnn   {
+  margin-left: 120px;
+  top:-10px;
+}
 
 .oc-subtitle {
   font-size: 14px;
@@ -157,3 +162,6 @@
   color: #555;
   line-height: 1.6;
 }
+
+ 
+

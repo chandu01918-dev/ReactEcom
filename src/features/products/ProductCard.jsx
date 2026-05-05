@@ -1,15 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeFromCart } from "../cart/cartSlice";
-import { addToWishlist, removeFromWishlist } from "../wishlist/wishlistSlice";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../cart/cartSlice";
+import { addToWishlist } from "../wishlist/wishlistSlice";
 import { FaShoppingCart, FaHeart } from "react-icons/fa";
 import "./ProductCard.css";
 
 export default function ProductCard({ product }) {
   const dispatch = useDispatch();
-  const cart = useSelector(state => state.cart.items);
-  const wishlist = useSelector(state => state.wishlist.items);
-  const inCart = cart.some(i => i.id === product.id);
-  const inWishlist = wishlist.some(i => i.id === product.id);
 
   return (
     <div className="card">
@@ -29,26 +25,18 @@ export default function ProductCard({ product }) {
       <div className="buttons">
 
         <button
-          onClick={() =>
-            inCart
-              ? dispatch(removeFromCart(product.id))
-              : dispatch(addToCart(product))
-          }
+          onClick={() => dispatch(addToCart(product))}
         >
-          <FaShoppingCart style={{marginRight:"6px"}}/>
-          {inCart ? "Remove Cart" : "Add to Cart"}
+          <FaShoppingCart style={{ marginRight: "6px" }} />
+          Add to Cart
         </button>
 
         <button
           className="wish"
-          onClick={() =>
-            inWishlist
-              ? dispatch(removeFromWishlist(product.id))
-              : dispatch(addToWishlist(product))
-          }
+          onClick={() => dispatch(addToWishlist(product))}
         >
-          <FaHeart style={{marginRight:"6px"}}/>
-          {inWishlist ? "Remove Wishlist" : "Add to Wishlist"}
+          <FaHeart style={{ marginRight: "6px" }} />
+          Add to Wishlist
         </button>
 
       </div>

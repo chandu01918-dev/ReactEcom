@@ -1,26 +1,37 @@
 import { useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../Cart/cartSlice";  
+import StepHeader from "../StepHeader/StepHeader";
 import UpiPayment from "../Payment/UpiPayment";
 import CardPayment from "../Payment/CardPayment";
 import EmiPayment from "./EmiPayment";
+
 import "./PaymentPage.css";
 
 export default function PaymentPage() {
   const navigate = useNavigate();
   const { state } = useLocation();
+
   const [method, setMethod] = useState("COD");
 
   const cartItems = useSelector((state) => state.cart.items || []);
   const address = state?.address;
 
+  // -------------------------
+  // DELIVERY DATE
+  // -------------------------
   const deliveryDate = useMemo(() => {
     const baseDays = 2;
     const extraDays =
-    cartItems.length > 3 ? 2 : cartItems.length > 1 ? 1 : 0;
+      cartItems.length > 3 ? 2 : cartItems.length > 1 ? 1 : 0;
+
     const totalDays = baseDays + extraDays;
+
     const date = new Date();
     date.setDate(date.getDate() + totalDays);
+
     return date.toLocaleDateString("en-GB", {
       day: "2-digit",
       month: "short",
@@ -28,6 +39,9 @@ export default function PaymentPage() {
     });
   }, [cartItems]);
 
+  // -------------------------
+  // PRICE CALCULATIONS
+  // -------------------------
   const price = useMemo(() => {
     return Number(
       cartItems.reduce((acc, item) => acc + (item.price || 0), 0).toFixed(2)
@@ -45,74 +59,46 @@ export default function PaymentPage() {
   const codFee = method === "COD" ? 10 : 0;
 
   const totalAmount = useMemo(() => {
-    return Number((price - discount + platformFee + codFee).toFixed(2));
+    return Number(
+      (price - discount + platformFee + codFee).toFixed(2)
+    );
   }, [price, discount, platformFee, codFee]);
 
-  const handleOrder = () => {
-    if (!address || cartItems.length === 0) return;
+  // -------------------------
+  // ORDER HANDLER
+  // -------------------------
+  const dispatch = useDispatch();
 
-    navigate("/orderconfirm", {
-      state: {
-        method,
-        totalAmount,
-        deliveryDate,
-        address
-      }
-    });
-  };
+const handleOrder = () => {
+  if (!address || cartItems.length === 0) return;
 
+  dispatch(clearCart());
+
+  navigate("/orderconfirm", {
+    state: {
+      method,
+      totalAmount,
+      deliveryDate,
+      address
+    }
+  });
+};
+
+  // -------------------------
+  // UI
+  // -------------------------
   return (
     <div className="addr-wrapper">
 
-      <div className="addr-steps">
-        <div
-          className="step active"
-          onClick={() => {
-            if (cartItems.length === 0) return;
-            navigate("/cart");
-          }}
-        >
-          <div className="circle done">1</div>
-          <p>My Cart</p>
-        </div>
+      {/* ✅ Step Header (EXTRACTED COMPONENT) */}
+      <StepHeader
+        currentStep={3}
+        cartItems={cartItems}
+        address={address}
+        onConfirm={handleOrder}
+      />
 
-        <div className="line"></div>
-
-        <div
-          className="step active"
-          onClick={() => navigate("/address")}
-        >
-          <div className="circle done">2</div>
-          <p>Address</p>
-        </div>
-
-        <div className="line"></div>
-
-        <div
-          className="step active"
-          onClick={() => {
-            if (!address) return;
-            navigate("/payment", { state: { address } });
-          }}
-        >
-          <div className="circle active">3</div>
-          <p>Payment</p>
-        </div>
-
-        <div className="line"></div>
-
-        <div
-          className="step"
-          onClick={() => {
-            if (!address || cartItems.length === 0) return;
-            handleOrder();
-          }}
-        >
-          <div className="circle">4</div>
-          <p>Order Confirm</p>
-        </div>
-      </div>
-
+      {/* BACK BUTTON */}
       <div className="nav-buttons">
         <button
           className="back-btn"
@@ -125,6 +111,7 @@ export default function PaymentPage() {
       <div className="payment-layout">
         <div className="payment-card">
 
+          {/* ---------------- LEFT SIDE ---------------- */}
           <div className="payment-left">
             <h3>Choose Payment Mode</h3><br />
 
@@ -157,6 +144,7 @@ export default function PaymentPage() {
             </div>
           </div>
 
+          {/* ---------------- MIDDLE ---------------- */}
           <div className="payment-middle">
 
             {method === "COD" && (
@@ -172,13 +160,18 @@ export default function PaymentPage() {
                   A fee of ₹10 is applicable for this option.
                 </p>
 
-                <button className="continue-btn" onClick={handleOrder}>
+                <button
+                  className="continue-btn"
+                  onClick={handleOrder}
+                >
                   Continue
                 </button>
               </>
             )}
 
-            {method === "UPI" && <UpiPayment onPay={handleOrder} />}
+            {method === "UPI" && (
+              <UpiPayment onPay={handleOrder} />
+            )}
 
             {method === "CARD" && (
               <CardPayment
@@ -206,7 +199,9 @@ export default function PaymentPage() {
 
           </div>
 
+          {/* ---------------- RIGHT SUMMARY ---------------- */}
           <div className="payment-summary-inside">
+
             <h4>ESTIMATED DELIVERY TIME</h4>
             <p className="summary-date">{deliveryDate}</p>
 

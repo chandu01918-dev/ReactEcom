@@ -19,6 +19,7 @@ export default function Sidebar({ ranges, selected, setSelected }) {
 
   return (
     <aside className="sidebar">
+
       <div className="section">
         <h3 className="section-title">Price Filter</h3>
 
@@ -95,22 +96,32 @@ export default function Sidebar({ ranges, selected, setSelected }) {
         {wishlist.length === 0 ? (
           <p className="empty-text">Wishlist is empty</p>
         ) : (
-          wishlist.map((item) => (
-            <div key={item.id} className="item-card">
-              <div className="item-content">
-                <p className="item-title">{item.title}</p>
-              </div>
+          <>
+            {wishlist.map((item) => (
+              <div key={item.id} className="item-card">
+                <div className="item-content">
+                  <p className="item-title">{item.title}</p>
+                </div>
 
-              <button
-                className="remove-btn"
-                onClick={() => dispatch(removeFromWishlist(item.id))}
-              >
-                ✕
-              </button>
-            </div>
-          ))
+                <button
+                  className="remove-btn"
+                  onClick={() => dispatch(removeFromWishlist(item.id))}
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+
+            <button
+              className="continue-butn"
+              onClick={() => navigate("/wishlist")}
+            >
+              Go To Wishlist Page
+            </button>
+          </>
         )}
       </div>
+
     </aside>
   );
 }

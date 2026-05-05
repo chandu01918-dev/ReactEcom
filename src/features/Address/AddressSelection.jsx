@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteAddress } from "./addressSlice";
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import StepHeader from "../StepHeader/StepHeader";
 import "./AddressSelection.css";
 
 export default function AddressSelection() {
@@ -51,33 +52,12 @@ export default function AddressSelection() {
 
   return (
     <div className="addr-wrapper">
-      <div className="addr-steps">
-        <div className="step active" onClick={() => navigate("/cart")}>
-          <div className="circle done">1</div>
-          <p>My Cart</p>
-        </div>
 
-        <div className="line"></div>
-
-        <div className="step active">
-          <div className="circle active">2</div>
-          <p>Address</p>
-        </div>
-
-        <div className="line"></div>
-
-        <div className="step">
-          <div className="circle">3</div>
-          <p>Payment</p>
-        </div>
-
-        <div className="line"></div>
-
-        <div className="step">
-          <div className="circle">4</div>
-          <p>Order Confirm</p>
-        </div>
-      </div>
+      <StepHeader
+        currentStep={2}
+        cartItems={cartItems}
+        address={selectedAddress}
+      />
 
       <div className="nav-buttons">
         <button className="back-btn" onClick={() => navigate("/cart")}>

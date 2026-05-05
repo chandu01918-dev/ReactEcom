@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart, updateQuantity, clearCart } from "./cartSlice";
 import { selectCartItems } from "./cartSelectors";
 import { useNavigate } from "react-router-dom";
+import StepHeader from "../StepHeader/StepHeader";
 import "./CartPage.css";
 
 export default function CartPage() {
@@ -19,38 +20,17 @@ export default function CartPage() {
   return (
     <div className="cart-container">
 
-      <div className="checkout-steps">
-        <div className="step active">
-          <div className="circle">1</div>
-          <p>My Cart</p>
-        </div>
+      <StepHeader
+        currentStep={1}
+        cartItems={cartItems}
+      />
 
-        <div className="line"></div>
-
-        <div className="step">
-          <div className="circle">2</div>
-          <p>Address</p>
-        </div>
-
-        <div className="line"></div>
-
-        <div className="step">
-          <div className="circle">3</div>
-          <p>Payment</p>
-        </div>
-
-        <div className="line"></div>
-
-        <div className="step">
-          <div className="circle">4</div>
-          <p>Order Confirm</p>
-        </div>
-      </div>
       <div className="nav-buttons">
         <button className="back-btn" onClick={() => navigate("/")}>
           Back to HomePage
         </button>
-        </div>
+      </div>
+
       <h2 className="cart-title">Your Cart</h2>
 
       {cartItems.length === 0 ? (

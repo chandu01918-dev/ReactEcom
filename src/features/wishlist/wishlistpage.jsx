@@ -1,46 +1,81 @@
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromWishlist } from "../wishlist/wishlistSlice";
+import { addToCart } from "../cart/cartSlice";
 import { selectWishlistItems } from "../wishlist/wishlistSelectors";
+import { useNavigate } from "react-router-dom";
 import "./wishlistpage.css";
 
 export default function WishlistPage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const wishlistItems = useSelector(selectWishlistItems) || [];
 
-  if (!wishlistItems.length) {
-    return (
-      <div className="wishlist-empty">
-        <h2>Your Wishlist is Empty</h2>
-      </div>
-    );
-  }
-
   return (
-    <div className="wishlist-container">
-      <h2 className="wishlist-title">Your Wishlist</h2>
+    <div className="wl-container">
 
-      <div className="wishlist-grid">
-        {wishlistItems.map((item) => (
-          <div key={item.id} className="wishlist-card">
-            <img src={item.image} alt={item.title} />
+      <h2 className="wl-title">Your Wishlist</h2>
 
-            <h3 className="title">{item.title}</h3>
-            <p className="brand">{item.brand}</p>
-            <p className="price">₹{item.price}</p>
+      {wishlistItems.length === 0 ? (
+        <div className="wl-empty">
+          <h2>Your Wishlist is Empty</h2>
+          <button
+            className="wl-continue-btn"
+            onClick={() => navigate("/home")}
+          >
+            Back To Home Page
+          </button>
+        </div>
+      ) : (
+        <>
+          {wishlistItems.map((item) => (
+            <div key={item.id} className="wl-row">
 
-            <div className="wishlist-actions">
-              <button className="add-btn">Add to Cart</button>
+              <img
+                src={item.thumbnail}
+                alt={item.title}
+                className="wl-img"
+              />
 
-              <button
-                className="wishlist-btn"
-                onClick={() => dispatch(removeFromWishlist(item.id))}
-              >
-                Remove
-              </button>
+              <div className="wl-info">
+                <h3 className="wl-name">{item.title}</h3>
+                <p className="wl-price">₹{item.price}</p>
+
+                <div className="wl-actions">
+
+                  <button
+                    className="wl-add-btn"
+                    onClick={() => {
+                      dispatch(addToCart(item));
+                      dispatch(removeFromWishlist(item.id));
+                    }}
+                  >
+                    Add to Cart
+                  </button>
+
+                  <button
+                    className="wl-remove-btn"
+                    onClick={() => dispatch(removeFromWishlist(item.id))}
+                  >
+                    Remove
+                  </button>
+
+                </div>
+              </div>
+
             </div>
+          ))}
+
+          <div className="wl-footer">
+            <button
+              className="wl-continue-btn"
+              onClick={() => navigate("/home")}
+            >
+              Back To Home Page
+            </button>
           </div>
-        ))}
-      </div>
+        </>
+      )}
+
     </div>
   );
 }

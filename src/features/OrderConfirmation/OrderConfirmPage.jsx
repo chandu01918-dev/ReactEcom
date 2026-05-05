@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import StepHeader from "../StepHeader/StepHeader";
 import "./OrderConfirm.css";
 
 export default function OrderConfirm() {
@@ -13,7 +14,6 @@ export default function OrderConfirm() {
   const generateOrderId = () => {
     const num = Math.floor(100000 + Math.random() * 900000);
     return `ORD${num}`;
-
   };
 
   const [orderId, setOrderId] = useState("");
@@ -73,14 +73,6 @@ export default function OrderConfirm() {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      navigate("/");
-    }, 20000);
-
-    return () => clearTimeout(timer);
-  }, [navigate]);
-
   const getPaymentText = () => {
     if (method === "COD") {
       return `Cash on Delivery\nPay ₹${totalAmount} on delivery`;
@@ -100,32 +92,12 @@ export default function OrderConfirm() {
   return (
     <div className="addr-wrapper">
 
-      <div className="addr-steps">
-        <div className="step active">
-          <div className="circle done">1</div>
-          <p>My Cart</p>
-        </div>
+      <StepHeader currentStep={4} />
 
-        <div className="line"></div>
-
-        <div className="step active">
-          <div className="circle done">2</div>
-          <p>Address</p>
-        </div>
-
-        <div className="line"></div>
-
-        <div className="step active">
-          <div className="circle done">3</div>
-          <p>Payment</p>
-        </div>
-
-        <div className="line"></div>
-
-        <div className="step active">
-          <div className="circle active">4</div>
-          <p>Order Confirm</p>
-        </div>
+      <div className="nav-buttons">
+        <button className="back-btnn" onClick={() => navigate("/")}>
+          Go to Home
+        </button>
       </div>
 
       <div className="oc-wrapper">

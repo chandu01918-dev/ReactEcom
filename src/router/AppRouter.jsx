@@ -20,6 +20,8 @@ export default function AppRouter() {
     <Routes>
 
       <Route path="/" element={<WelcomePage />} />
+      <Route path="/login" element={<Login />}  />
+
 
       <Route
         path="/login"
@@ -31,9 +33,9 @@ export default function AppRouter() {
         element={user ? <Navigate to="/home" /> : <Signup />}
       />
 
-      <Route element={<ProtectedRoute />}>
+      <Route path="/home" element={<Home />} />
 
-        <Route path="/home" element={<Home />} />
+      <Route element={<ProtectedRoute />}>
         <Route path="/products" element={<ProductTable />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/wishlist" element={<WishlistPage />} />
@@ -41,7 +43,6 @@ export default function AppRouter() {
         <Route path="/address" element={<AddressSelection />} />
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/orderconfirm" element={<OrderConfirmPage />} />
-
       </Route>
 
     </Routes>

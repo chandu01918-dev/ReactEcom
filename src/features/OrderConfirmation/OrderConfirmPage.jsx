@@ -95,7 +95,7 @@ export default function OrderConfirm() {
       <StepHeader currentStep={4} />
 
       <div className="nav-buttons">
-        <button className="back-btnn" onClick={() => navigate("/")}>
+        <button className="back-btnn" onClick={() => navigate("/home")}>
           Go to Home
         </button>
       </div>

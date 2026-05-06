@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
+import { useDispatch } from "react-redux";
 import {
   FaMapMarkerAlt,
   FaShoppingBag,
@@ -8,32 +10,263 @@ import {
   FaAppleAlt,
   FaCouch,
   FaCar,
-  FaTags
+  FaTags,
+  FaUserCircle,
+  FaUser,
+  FaHeart,
+  FaBox,
+  FaSignOutAlt,
+  FaShoppingCart,
+  FaChevronLeft,
+  FaChevronRight
 } from "react-icons/fa";
 import "./WelcomePage.css";
+import { logout } from "../auth/authSlice";
+import { clearCart } from "../cart/cartSlice";
 
 export default function WelcomePage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [user, setUser] = useState(null);
+  const [showDropdown, setShowDropdown] =
+    useState(false);
+
+  const [cartCount, setCartCount] = useState(0);
+
+  const [wishlistCount, setWishlistCount] =
+    useState(0);
+
+  const [currentSlide, setCurrentSlide] =
+    useState(0);
+
+  const dropdownRef = useRef();
+
+  const slides = [
+    {
+      image:
+        "https://t4.ftcdn.net/jpg/02/32/16/07/360_F_232160763_FuTBWDd981tvYEJFXpFZtolm8l4ct0Nz.jpg",
+      title: "Upgrade Your Lifestyle",
+      desc:
+        "Discover premium collections with unbeatable prices"
+    },
+    {
+      image:
+        "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
+      title: "Trendy Fashion Deals",
+      desc: "Stay ahead with the latest styles"
+    },
+    {
+      image:
+        "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9",
+      title: "Smart Gadgets",
+      desc: "Latest tech at your fingertips"
+    }
+  ];
+
+  const loadUserData = () => {
+    try {
+      const authUser =
+        localStorage.getItem("auth_user");
+
+      const normalUser =
+        localStorage.getItem("user");
+
+      let storedUser = null;
+
+      if (authUser) {
+        storedUser = JSON.parse(authUser);
+      } else if (normalUser) {
+        storedUser = JSON.parse(normalUser);
+      }
+
+      if (storedUser) {
+        const userName =
+          storedUser.username ||
+          storedUser.name ||
+          storedUser.email?.split("@")[0] ||
+          storedUser.user?.username ||
+          storedUser.user?.name ||
+          storedUser.user?.email?.split("@")[0];
+
+        setUser(userName || "User");
+      } else {
+        setUser(null);
+      }
+
+      const cart =
+        JSON.parse(localStorage.getItem("cart")) ||
+        [];
+
+      const wishlist =
+        JSON.parse(
+          localStorage.getItem("wishlist")
+        ) || [];
+
+      setCartCount(cart.length);
+
+      setWishlistCount(wishlist.length);
+    } catch (error) {
+      console.log(error);
+      setUser(null);
+    }
+  };
+
+  useEffect(() => {
+    loadUserData();
+
+    window.addEventListener(
+      "focus",
+      loadUserData
+    );
+
+    return () => {
+      window.removeEventListener(
+        "focus",
+        loadUserData
+      );
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleStorage = () => {
+      loadUserData();
+    };
+
+    window.addEventListener(
+      "storage",
+      handleStorage
+    );
+
+    return () => {
+      window.removeEventListener(
+        "storage",
+        handleStorage
+      );
+    };
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide(
+        (prev) => (prev + 1) % slides.length
+      );
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target)
+      ) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener(
+      "click",
+      handleClickOutside
+    );
+
+    return () => {
+      document.removeEventListener(
+        "click",
+        handleClickOutside
+      );
+    };
+  }, []);
+
+  const handleLogout = () => {
+    dispatch(clearCart());
+
+    dispatch(logout());
+
+    localStorage.removeItem("cart");
+
+    localStorage.removeItem("wishlist");
+
+    localStorage.removeItem("auth_user");
+
+    localStorage.removeItem("user");
+
+    window.dispatchEvent(
+      new Event("storage")
+    );
+
+    setUser(null);
+
+    setCartCount(0);
+
+    setWishlistCount(0);
+
+    setShowDropdown(false);
+
+    navigate("/");
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide(
+      (prev) => (prev + 1) % slides.length
+    );
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide(
+      (prev) =>
+        (prev - 1 + slides.length) %
+        slides.length
+    );
+  };
 
   const categories = [
-    { name: "Smartphones", icon: <FaMobileAlt /> },
-    { name: "Laptops", icon: <FaLaptop /> },
-    { name: "Fashion", icon: <FaTshirt /> },
-    { name: "Groceries", icon: <FaAppleAlt /> },
-    { name: "Home Essentials", icon: <FaCouch /> },
-    { name: "Automotive", icon: <FaCar /> },
-    { name: "Accessories", icon: <FaTags /> }
+    {
+      name: "Smartphones",
+      icon: <FaMobileAlt />
+    },
+    {
+      name: "Laptops",
+      icon: <FaLaptop />
+    },
+    {
+      name: "Fashion",
+      icon: <FaTshirt />
+    },
+    {
+      name: "Groceries",
+      icon: <FaAppleAlt />
+    },
+    {
+      name: "Home Essentials",
+      icon: <FaCouch />
+    },
+    {
+      name: "Automotive",
+      icon: <FaCar />
+    },
+    {
+      name: "Accessories",
+      icon: <FaTags />
+    }
   ];
 
   return (
     <div className="wp-container">
-
       <header className="wp-topbar">
-        <div className="wp-logo">ShopSphere</div>
+        <div
+          className="wp-logo"
+          onClick={() => navigate("/")}
+        >
+          ShopSphere
+        </div>
 
         <div className="wp-location">
           <FaMapMarkerAlt />
-          <span>Delivering to your location</span>
+          <span>
+            Enable Location Access
+          </span>
         </div>
 
         <input
@@ -42,50 +275,157 @@ export default function WelcomePage() {
         />
 
         <div className="wp-actions">
-          <button className="wp-seller">Become a Seller</button>
-          <button onClick={() => navigate("/login")}>Login</button>
-          <button onClick={() => navigate("/signup")}>Sign Up</button>
+          <button className="wp-seller">
+            Become a Seller
+          </button>
+
+          {user ? (
+            <div
+              className="wp-user"
+              ref={dropdownRef}
+            >
+              <div
+                className="wp-user-info"
+                onClick={() =>
+                  setShowDropdown(
+                    !showDropdown
+                  )
+                }
+              >
+                <FaUserCircle />
+                <span>{user}</span>
+              </div>
+
+              {showDropdown && (
+                <div className="wp-dropdown">
+                  <div
+                    onClick={() =>
+                      navigate("/account")
+                    }
+                  >
+                    <FaUser /> Your Account
+                  </div>
+
+                  <div
+                    onClick={() =>
+                      navigate("/profile")
+                    }
+                  >
+                    <FaUserCircle /> My Profile
+                  </div>
+
+                  <div
+                    onClick={() =>
+                      navigate("/orders")
+                    }
+                  >
+                    <FaBox /> Orders
+                  </div>
+
+                  <div
+                    onClick={() =>
+                      navigate("/wishlist")
+                    }
+                  >
+                    <FaHeart /> Wishlists
+
+                    {wishlistCount > 0 && (
+                      <span className="dropdown-cart-count">
+                        {wishlistCount}
+                      </span>
+                    )}
+                  </div>
+
+                  <div
+                    onClick={() =>
+                      navigate("/cart")
+                    }
+                  >
+                    <FaShoppingCart /> My Cart
+
+                    {cartCount > 0 && (
+                      <span className="dropdown-cart-count">
+                        {cartCount}
+                      </span>
+                    )}
+                  </div>
+
+                  <div
+                    className="logout"
+                    onClick={handleLogout}
+                  >
+                    <FaSignOutAlt /> Logout
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <button
+              className="wp-login"
+              onClick={() =>
+                navigate("/login")
+              }
+            >
+              Login/Signup
+            </button>
+          )}
         </div>
       </header>
 
       <div className="wp-categories">
         {categories.map((cat, index) => (
-          <span key={index} className="wp-cat-item">
+          <span
+            key={index}
+            className="wp-cat-item"
+          >
             {cat.icon}
             {cat.name}
           </span>
         ))}
       </div>
 
-      <section className="wp-hero">
+      <section
+        className="wp-hero"
+        style={{
+          backgroundImage: `url(${slides[currentSlide].image})`
+        }}
+      >
+        <div className="overlay"></div>
 
-        <div className="wp-left">
-          <h4>Everything you need, all in one place</h4>
+        <button
+          className="arrow left"
+          onClick={prevSlide}
+        >
+          <FaChevronLeft />
+        </button>
 
-          <h1>Upgrade Your Lifestyle Today</h1>
+        <div className="wp-hero-content">
+          <h1>
+            {slides[currentSlide].title}
+          </h1>
 
           <p>
-            Browse top categories, discover trending products, and enjoy seamless shopping with fast delivery and great prices.
+            {slides[currentSlide].desc}
           </p>
 
           <button
             className="wp-btn"
-            onClick={() => navigate("/home")}
+            onClick={() =>
+              navigate("/home")
+            }
           >
             <FaShoppingBag />
-            <span>Start Shopping</span>
+            Start Shopping
           </button>
         </div>
 
-        <div className="wp-right">
-          <img
-            src="https://images.unsplash.com/photo-1520975916090-3105956dac38"
-            alt="shopping"
-          />
-        </div>
-
+        <button
+          className="arrow right"
+          onClick={nextSlide}
+        >
+          <FaChevronRight />
+        </button>
       </section>
-
     </div>
   );
 }

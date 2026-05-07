@@ -12,7 +12,11 @@ import {
   FaSignOutAlt,
   FaShoppingCart,
   FaChevronLeft,
-  FaChevronRight
+  FaChevronRight,
+  FaAppleAlt,
+  FaCouch,
+  FaSprayCan,
+  FaSpa
 } from "react-icons/fa";
 
 import "./WelcomePage.css";
@@ -40,7 +44,33 @@ export default function WelcomePage() {
   const [currentSlide, setCurrentSlide] =
     useState(0);
 
+  const [selectedCategory, setSelectedCategory] =
+    useState("beauty");
+
   const dropdownRef = useRef();
+
+  const categories = [
+    {
+      name: "Beauty",
+      slug: "beauty",
+      icon: <FaSpa />
+    },
+    {
+      name: "Groceries",
+      slug: "groceries",
+      icon: <FaAppleAlt />
+    },
+    {
+      name: "Furniture",
+      slug: "furniture",
+      icon: <FaCouch />
+    },
+    {
+      name: "Fragrances",
+      slug: "fragrances",
+      icon: <FaSprayCan />
+    }
+  ];
 
   const slides = [
     {
@@ -374,6 +404,28 @@ export default function WelcomePage() {
         </div>
       </header>
 
+     <div className="welcome-categories">
+  {categories.map((cat, index) => (
+    <div
+      key={index}
+      className={`welcome-category-item ${
+        selectedCategory === cat.slug
+          ? "active"
+          : ""
+      }`}
+      onClick={() =>
+        setSelectedCategory(cat.slug)
+      }
+    >
+      <div className="welcome-category-icon">
+        {cat.icon}
+      </div>
+
+      <span>{cat.name}</span>
+    </div>
+  ))}
+</div>
+
       <section
         className="wp-hero"
         style={{
@@ -423,7 +475,11 @@ export default function WelcomePage() {
         </button>
       </section>
 
-      <Categories />
+      <Categories
+        selectedCategory={
+          selectedCategory
+        }
+      />
     </div>
   );
 }

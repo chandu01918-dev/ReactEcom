@@ -1,16 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
+
 import {
   FaMapMarkerAlt,
   FaShoppingBag,
-  FaMobileAlt,
-  FaLaptop,
-  FaTshirt,
-  FaAppleAlt,
-  FaCouch,
-  FaCar,
-  FaTags,
   FaUserCircle,
   FaUser,
   FaHeart,
@@ -20,15 +14,21 @@ import {
   FaChevronLeft,
   FaChevronRight
 } from "react-icons/fa";
+
 import "./WelcomePage.css";
+
 import { logout } from "../auth/authSlice";
 import { clearCart } from "../cart/cartSlice";
 
+import Categories from "../Welcome/Categories";
+
 export default function WelcomePage() {
   const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   const [user, setUser] = useState(null);
+
   const [showDropdown, setShowDropdown] =
     useState(false);
 
@@ -46,21 +46,31 @@ export default function WelcomePage() {
     {
       image:
         "https://t4.ftcdn.net/jpg/02/32/16/07/360_F_232160763_FuTBWDd981tvYEJFXpFZtolm8l4ct0Nz.jpg",
+
       title: "Upgrade Your Lifestyle",
+
       desc:
         "Discover premium collections with unbeatable prices"
     },
+
     {
       image:
         "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
+
       title: "Trendy Fashion Deals",
-      desc: "Stay ahead with the latest styles"
+
+      desc:
+        "Stay ahead with the latest styles"
     },
+
     {
       image:
         "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9",
+
       title: "Smart Gadgets",
-      desc: "Latest tech at your fingertips"
+
+      desc:
+        "Latest tech at your fingertips"
     }
   ];
 
@@ -108,6 +118,7 @@ export default function WelcomePage() {
       setWishlistCount(wishlist.length);
     } catch (error) {
       console.log(error);
+
       setUser(null);
     }
   };
@@ -153,14 +164,19 @@ export default function WelcomePage() {
       );
     }, 4000);
 
-    return () => clearInterval(interval);
+    return () =>
+      clearInterval(interval);
   }, []);
 
   useEffect(() => {
-    const handleClickOutside = (e) => {
+    const handleClickOutside = (
+      e
+    ) => {
       if (
         dropdownRef.current &&
-        !dropdownRef.current.contains(e.target)
+        !dropdownRef.current.contains(
+          e.target
+        )
       ) {
         setShowDropdown(false);
       }
@@ -186,9 +202,13 @@ export default function WelcomePage() {
 
     localStorage.removeItem("cart");
 
-    localStorage.removeItem("wishlist");
+    localStorage.removeItem(
+      "wishlist"
+    );
 
-    localStorage.removeItem("auth_user");
+    localStorage.removeItem(
+      "auth_user"
+    );
 
     localStorage.removeItem("user");
 
@@ -221,37 +241,6 @@ export default function WelcomePage() {
     );
   };
 
-  const categories = [
-    {
-      name: "Smartphones",
-      icon: <FaMobileAlt />
-    },
-    {
-      name: "Laptops",
-      icon: <FaLaptop />
-    },
-    {
-      name: "Fashion",
-      icon: <FaTshirt />
-    },
-    {
-      name: "Groceries",
-      icon: <FaAppleAlt />
-    },
-    {
-      name: "Home Essentials",
-      icon: <FaCouch />
-    },
-    {
-      name: "Automotive",
-      icon: <FaCar />
-    },
-    {
-      name: "Accessories",
-      icon: <FaTags />
-    }
-  ];
-
   return (
     <div className="wp-container">
       <header className="wp-topbar">
@@ -264,6 +253,7 @@ export default function WelcomePage() {
 
         <div className="wp-location">
           <FaMapMarkerAlt />
+
           <span>
             Enable Location Access
           </span>
@@ -293,6 +283,7 @@ export default function WelcomePage() {
                 }
               >
                 <FaUserCircle />
+
                 <span>{user}</span>
               </div>
 
@@ -303,7 +294,8 @@ export default function WelcomePage() {
                       navigate("/account")
                     }
                   >
-                    <FaUser /> Your Account
+                    <FaUser />
+                    Your Account
                   </div>
 
                   <div
@@ -311,7 +303,8 @@ export default function WelcomePage() {
                       navigate("/profile")
                     }
                   >
-                    <FaUserCircle /> My Profile
+                    <FaUserCircle />
+                    My Profile
                   </div>
 
                   <div
@@ -319,7 +312,8 @@ export default function WelcomePage() {
                       navigate("/orders")
                     }
                   >
-                    <FaBox /> Orders
+                    <FaBox />
+                    Orders
                   </div>
 
                   <div
@@ -327,11 +321,15 @@ export default function WelcomePage() {
                       navigate("/wishlist")
                     }
                   >
-                    <FaHeart /> Wishlists
+                    <FaHeart />
+                    Wishlists
 
-                    {wishlistCount > 0 && (
+                    {wishlistCount >
+                      0 && (
                       <span className="dropdown-cart-count">
-                        {wishlistCount}
+                        {
+                          wishlistCount
+                        }
                       </span>
                     )}
                   </div>
@@ -341,7 +339,8 @@ export default function WelcomePage() {
                       navigate("/cart")
                     }
                   >
-                    <FaShoppingCart /> My Cart
+                    <FaShoppingCart />
+                    My Cart
 
                     {cartCount > 0 && (
                       <span className="dropdown-cart-count">
@@ -352,9 +351,12 @@ export default function WelcomePage() {
 
                   <div
                     className="logout"
-                    onClick={handleLogout}
+                    onClick={
+                      handleLogout
+                    }
                   >
-                    <FaSignOutAlt /> Logout
+                    <FaSignOutAlt />
+                    Logout
                   </div>
                 </div>
               )}
@@ -371,18 +373,6 @@ export default function WelcomePage() {
           )}
         </div>
       </header>
-
-      <div className="wp-categories">
-        {categories.map((cat, index) => (
-          <span
-            key={index}
-            className="wp-cat-item"
-          >
-            {cat.icon}
-            {cat.name}
-          </span>
-        ))}
-      </div>
 
       <section
         className="wp-hero"
@@ -401,11 +391,17 @@ export default function WelcomePage() {
 
         <div className="wp-hero-content">
           <h1>
-            {slides[currentSlide].title}
+            {
+              slides[currentSlide]
+                .title
+            }
           </h1>
 
           <p>
-            {slides[currentSlide].desc}
+            {
+              slides[currentSlide]
+                .desc
+            }
           </p>
 
           <button
@@ -426,6 +422,8 @@ export default function WelcomePage() {
           <FaChevronRight />
         </button>
       </section>
+
+      <Categories />
     </div>
   );
 }

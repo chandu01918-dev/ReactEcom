@@ -67,17 +67,18 @@ function Login() {
   };
 
   useEffect(() => {
-    if (success && user) {
+    if (user) {
       setPopup({
-        message: success,
+        message:
+          success ||
+          "Login successful",
         type: "success"
       });
 
       setTimeout(() => {
         dispatch(clearMessages());
-
         navigate("/home");
-      }, 500);
+      }, 1000);
     }
 
     if (error) {
@@ -88,12 +89,12 @@ function Login() {
 
       setTimeout(() => {
         dispatch(clearMessages());
-      }, 1000);
+      }, 1500);
     }
   }, [
+    user,
     success,
     error,
-    user,
     dispatch,
     navigate
   ]);

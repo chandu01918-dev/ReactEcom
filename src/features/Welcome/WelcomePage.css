@@ -319,3 +319,25 @@
 .welcome-category-icon svg {
   font-size: 13px;
 }  
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.see-all-btn {
+  padding: 12px 22px;
+  border: none;
+  border-radius: 8px;
+  background: white;
+  color: black;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.see-all-btn:hover {
+  background: #f1f1f1;
+  transform: scale(1.05);
+}

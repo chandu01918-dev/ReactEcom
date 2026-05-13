@@ -4,7 +4,7 @@ import axios from "axios";
 const AUTH_KEY = "auth_user";
 
 const API = axios.create({
-  baseURL: "https://ecommerce-backend-umber-seven.vercel.app",
+  baseURL: "http://65.0.29.192:5000",
   headers: {
     "Content-Type": "application/json"
   }
@@ -13,7 +13,6 @@ const API = axios.create({
 const loadUser = () => {
   try {
     const data = localStorage.getItem(AUTH_KEY);
-
     return data ? JSON.parse(data) : null;
   } catch {
     return null;
@@ -35,24 +34,30 @@ export const signupUser = createAsyncThunk(
   "auth/signupUser",
   async (formData, { rejectWithValue }) => {
     try {
+      const payload = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        username: formData.username,
+        email: formData.email,
+        password: formData.password
+      };
+
+      console.log("SIGNUP PAYLOAD:", payload);
+
       const res = await API.post(
         "/api/auth/seller/signup",
-        {
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          username: formData.username,
-          email: formData.email,
-          password: formData.password,
-          confirmPassword:
-            formData.confirmPassword,
-          joinAsSeller: true
-        }
+        payload
       );
+
+      console.log("SIGNUP RESPONSE:", res.data);
 
       return res.data;
     } catch (err) {
+      console.log("SIGNUP ERROR:", err.response);
+
       return rejectWithValue(
         err.response?.data?.message ||
+          err.response?.data?.error ||
           "Signup failed"
       );
     }
@@ -63,15 +68,22 @@ export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (credentials, { rejectWithValue }) => {
     try {
+      console.log("LOGIN PAYLOAD:", credentials);
+
       const res = await API.post(
         "/api/auth/seller/login",
         credentials
       );
 
+      console.log("LOGIN RESPONSE:", res.data);
+
       return res.data;
     } catch (err) {
+      console.log("LOGIN ERROR:", err.response);
+
       return rejectWithValue(
         err.response?.data?.message ||
+          err.response?.data?.error ||
           "Invalid credentials"
       );
     }
@@ -97,7 +109,6 @@ const authSlice = createSlice({
       clearUser();
 
       localStorage.removeItem("cart");
-
       localStorage.removeItem("wishlist");
     },
 
@@ -116,11 +127,21 @@ const authSlice = createSlice({
         state.success = null;
       })
 
-      .addCase(signupUser.fulfilled, (state) => {
-        state.loading = false;
-        state.success =
-          "Signup successful";
-      })
+      .addCase(
+        signupUser.fulfilled,
+        (state, action) => {
+          state.loading = false;
+
+          console.log(
+            "SIGNUP SUCCESS:",
+            action.payload
+          );
+
+          state.success =
+            action.payload?.message ||
+            "Signup successful";
+        }
+      )
 
       .addCase(
         signupUser.rejected,
@@ -141,24 +162,32 @@ const authSlice = createSlice({
         (state, action) => {
           state.loading = false;
 
+          console.log(
+            "LOGIN SUCCESS:",
+            action.payload
+          );
+
+          const data = action.payload;
+
           const loggedUser =
-            action.payload.user ||
-            action.payload.seller ||
-            action.payload.data ||
-            action.payload;
+            data.user ||
+            data.seller ||
+            data.data?.user ||
+            data.data ||
+            data;
 
           const userData = {
             token:
-              action.payload.token || null,
+              data.token ||
+              data.accessToken ||
+              null,
 
             user: {
               username:
                 loggedUser.username ||
-                loggedUser.firstName ||
                 loggedUser.name ||
-                loggedUser.email?.split(
-                  "@"
-                )[0] ||
+                loggedUser.firstName ||
+                loggedUser.email?.split("@")[0] ||
                 "User",
 
               firstName:
@@ -177,6 +206,7 @@ const authSlice = createSlice({
           saveUser(userData);
 
           state.success =
+            data.message ||
             "Login successful";
         }
       )

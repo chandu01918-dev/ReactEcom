@@ -1,15 +1,30 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signupUser, clearMessages } from "./authSlice";
+import {
+  signupUser,
+  clearMessages
+} from "./authSlice";
 import { useNavigate } from "react-router-dom";
-import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
+import {
+  FaUser,
+  FaEnvelope,
+  FaLock
+} from "react-icons/fa";
 import Popup from "./Popup";
 import "./auth.css";
 
 function Signup() {
   const dispatch = useDispatch();
+
   const navigate = useNavigate();
-  const { loading, error, success } = useSelector((state) => state.auth);
+
+  const {
+    loading,
+    error,
+    success
+  } = useSelector(
+    (state) => state.auth
+  );
 
   const [form, setForm] = useState({
     firstName: "",
@@ -17,8 +32,7 @@ function Signup() {
     username: "",
     email: "",
     password: "",
-    confirmPassword: "",
-    joinAsSeller: true
+    confirmPassword: ""
   });
 
   const [popup, setPopup] = useState({
@@ -27,7 +41,11 @@ function Signup() {
   });
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({
+      ...form,
+      [e.target.name]:
+        e.target.value
+    });
   };
 
   const handleSubmit = (e) => {
@@ -38,14 +56,28 @@ function Signup() {
       !form.lastName ||
       !form.username ||
       !form.email ||
-      !form.password
+      !form.password ||
+      !form.confirmPassword
     ) {
-      setPopup({ message: "All fields are required", type: "error" });
+      setPopup({
+        message:
+          "All fields are required",
+        type: "error"
+      });
+
       return;
     }
 
-    if (form.password !== form.confirmPassword) {
-      setPopup({ message: "Passwords do not match", type: "error" });
+    if (
+      form.password !==
+      form.confirmPassword
+    ) {
+      setPopup({
+        message:
+          "Passwords do not match",
+        type: "error"
+      });
+
       return;
     }
 
@@ -54,30 +86,49 @@ function Signup() {
 
   useEffect(() => {
     if (success) {
-      setPopup({ message: success, type: "success" });
+      setPopup({
+        message: success,
+        type: "success"
+      });
 
       setTimeout(() => {
         dispatch(clearMessages());
-      }, 0);
+        navigate("/login");
+      }, 1000);
     }
 
     if (error) {
-      setPopup({ message: error, type: "error" });
+      setPopup({
+        message: error,
+        type: "error"
+      });
 
       setTimeout(() => {
         dispatch(clearMessages());
-      }, 0);
+      }, 1500);
     }
-  }, [success, error, dispatch]);
+  }, [
+    success,
+    error,
+    dispatch,
+    navigate
+  ]);
 
   return (
     <div className="authPage">
-      <form className="authBox" onSubmit={handleSubmit}>
-        <h2 className="authsign">Create Account</h2>
+      <form
+        className="authBox"
+        onSubmit={handleSubmit}
+      >
+        <h2 className="authsign">
+          Create Account
+        </h2>
 
         <div className="inputGroup">
           <FaUser className="inputIcon" />
+
           <input
+            type="text"
             name="firstName"
             placeholder="First Name"
             value={form.firstName}
@@ -87,7 +138,9 @@ function Signup() {
 
         <div className="inputGroup">
           <FaUser className="inputIcon" />
+
           <input
+            type="text"
             name="lastName"
             placeholder="Last Name"
             value={form.lastName}
@@ -97,7 +150,9 @@ function Signup() {
 
         <div className="inputGroup">
           <FaUser className="inputIcon" />
+
           <input
+            type="text"
             name="username"
             placeholder="Username"
             value={form.username}
@@ -107,6 +162,7 @@ function Signup() {
 
         <div className="inputGroup">
           <FaEnvelope className="inputIcon" />
+
           <input
             type="email"
             name="email"
@@ -118,6 +174,7 @@ function Signup() {
 
         <div className="inputGroup">
           <FaLock className="inputIcon" />
+
           <input
             type="password"
             name="password"
@@ -129,6 +186,7 @@ function Signup() {
 
         <div className="inputGroup">
           <FaLock className="inputIcon" />
+
           <input
             type="password"
             name="confirmPassword"
@@ -138,11 +196,21 @@ function Signup() {
           />
         </div>
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Creating..." : "Create Account"}
+        <button
+          type="submit"
+          disabled={loading}
+        >
+          {loading
+            ? "Creating..."
+            : "Create Account"}
         </button>
 
-        <p className="link" onClick={() => navigate("/login")}>
+        <p
+          className="link"
+          onClick={() =>
+            navigate("/login")
+          }
+        >
           Already have account? Login
         </p>
       </form>
@@ -151,8 +219,12 @@ function Signup() {
         message={popup.message}
         type={popup.type}
         autoClose={true}
-        onClose={() => setPopup({ message: "", type: "" })}
-        onSuccess={() => navigate("/login")}
+        onClose={() =>
+          setPopup({
+            message: "",
+            type: ""
+          })
+        }
       />
     </div>
   );

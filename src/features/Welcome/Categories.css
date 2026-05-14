@@ -19,11 +19,7 @@
   display: inline-block;
   padding: 9px 16px;
   border-radius: 30px;
-  background: linear-gradient(
-    135deg,
-    #7c3aed,
-    #9333ea
-  );
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
   color: white;
   font-size: 12px;
   font-weight: 600;
@@ -48,11 +44,7 @@
   border: none;
   padding: 13px 22px;
   border-radius: 40px;
-  background: linear-gradient(
-    135deg,
-    #7c3aed,
-    #9333ea
-  );
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
   color: white;
   font-weight: 600;
   cursor: pointer;
@@ -68,6 +60,7 @@
   overflow: hidden;
   flex: 1;
   padding: 10px 50px;
+  width: 100%;
 }
 
 .products-track {
@@ -83,16 +76,14 @@
   border-radius: 22px;
   padding: 18px;
   position: relative;
-  box-shadow: 0 8px 24px
-    rgba(15, 23, 42, 0.06);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
   transition: 0.3s ease;
   flex-shrink: 0;
 }
 
 .product-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 16px 34px
-    rgba(15, 23, 42, 0.12);
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.12);
 }
 
 .discount {
@@ -143,8 +134,6 @@
   font-weight: 600;
 }
 
-
-
 .carousel-btn {
   position: absolute;
   top: 50%;
@@ -160,14 +149,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 20px
-    rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   transition: 0.3s ease;
 }
 
 .carousel-btn:hover {
-  transform: translateY(-50%)
-    scale(1.08);
+  transform: translateY(-50%) scale(1.08);
 }
 
 .carousel-btn.prev {
@@ -177,8 +164,6 @@
 .carousel-btn.next {
   right: 0;
 }
-
-
 
 .products-carousel::before,
 .products-carousel::after {
@@ -193,23 +178,13 @@
 
 .products-carousel::before {
   left: 0;
-  background: linear-gradient(
-    to right,
-    #f8fafc,
-    transparent
-  );
+  background: linear-gradient(to right, #f8fafc, transparent);
 }
 
 .products-carousel::after {
   right: 0;
-  background: linear-gradient(
-    to left,
-    #f8fafc,
-    transparent
-  );
+  background: linear-gradient(to left, #f8fafc, transparent);
 }
-
-
 
 @media (max-width: 1200px) {
   .products-header {
@@ -219,18 +194,159 @@
   .products-content {
     width: 100%;
   }
+
+  .products-content h2 {
+    max-width: 600px;
+  }
+
+  .products-carousel {
+    width: 100%;
+    padding: 10px 45px;
+  }
+}
+
+@media (max-width: 992px) {
+  .products-section {
+    padding: 40px 24px;
+  }
+
+  .products-content h2 {
+    font-size: 36px;
+  }
+
+  .product-card {
+    width: 210px;
+  }
+
+  .product-card img {
+    height: 160px;
+  }
 }
 
 @media (max-width: 768px) {
+  .products-section {
+    padding: 35px 18px;
+  }
+
+  .products-header {
+    gap: 24px;
+  }
+
   .products-content h2 {
     font-size: 32px;
+  }
+
+  .products-content p {
+    font-size: 13px;
   }
 
   .products-carousel {
     padding: 10px 35px;
   }
 
+  .products-track {
+    gap: 14px;
+  }
+
   .product-card {
-    width: 200px;
+    width: 190px;
+    padding: 16px;
+  }
+
+  .product-card img {
+    height: 150px;
+  }
+
+  .price {
+    font-size: 22px;
+  }
+
+  .carousel-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .products-carousel::before,
+  .products-carousel::after {
+    width: 45px;
+  }
+}
+
+@media (max-width: 576px) {
+  .products-section {
+    padding: 30px 14px;
+  }
+
+  .products-content h2 {
+    font-size: 28px;
+  }
+
+  .products-content p {
+    line-height: 1.6;
+  }
+
+  .products-content button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .products-carousel {
+    padding: 10px 28px;
+  }
+
+  .products-track {
+    gap: 12px;
+  }
+
+  .product-card {
+    width: calc(100vw - 90px);
+    max-width: 280px;
+    border-radius: 18px;
+  }
+
+  .product-card h4 {
+    font-size: 16px;
+  }
+
+  .price {
+    font-size: 20px;
+  }
+
+  .rating {
+    font-size: 13px;
+  }
+
+  .carousel-btn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .products-carousel::before,
+  .products-carousel::after {
+    width: 28px;
+  }
+}
+
+@media (max-width: 400px) {
+  .products-content h2 {
+    font-size: 24px;
+  }
+
+  .deal-badge {
+    font-size: 11px;
+    padding: 8px 14px;
+  }
+
+  .product-card {
+    width: calc(100vw - 70px);
+    padding: 14px;
+  }
+
+  .product-card img {
+    height: 135px;
+  }
+
+  .price {
+    font-size: 18px;
   }
 }

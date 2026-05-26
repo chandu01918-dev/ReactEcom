@@ -3,7 +3,6 @@ import { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 
 import {
-  FaMapMarkerAlt,
   FaShoppingBag,
   FaUserCircle,
   FaUser,
@@ -25,18 +24,23 @@ import { logout } from "../auth/authSlice";
 import { clearCart } from "../cart/cartSlice";
 
 import Categories from "../Welcome/Categories";
+import BestSeller from "../Welcome/Bestseller";
+import LocationAccess from "../Location/LocationAccess";
+import FeaturedDeals from "../Welcome/FeaturedDeals";
 
 export default function WelcomePage() {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] =
+    useState(null);
 
   const [showDropdown, setShowDropdown] =
     useState(false);
 
-  const [cartCount, setCartCount] = useState(0);
+  const [cartCount, setCartCount] =
+    useState(0);
 
   const [wishlistCount, setWishlistCount] =
     useState(0);
@@ -77,7 +81,8 @@ export default function WelcomePage() {
       image:
         "https://t4.ftcdn.net/jpg/02/32/16/07/360_F_232160763_FuTBWDd981tvYEJFXpFZtolm8l4ct0Nz.jpg",
 
-      title: "Upgrade Your Lifestyle",
+      title:
+        "Upgrade Your Lifestyle",
 
       desc:
         "Discover premium collections with unbeatable prices"
@@ -87,7 +92,8 @@ export default function WelcomePage() {
       image:
         "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
 
-      title: "Trendy Fashion Deals",
+      title:
+        "Trendy Fashion Deals",
 
       desc:
         "Stay ahead with the latest styles"
@@ -107,7 +113,9 @@ export default function WelcomePage() {
   const loadUserData = () => {
     try {
       const authUser =
-        localStorage.getItem("auth_user");
+        localStorage.getItem(
+          "auth_user"
+        );
 
       const normalUser =
         localStorage.getItem("user");
@@ -115,19 +123,26 @@ export default function WelcomePage() {
       let storedUser = null;
 
       if (authUser) {
-        storedUser = JSON.parse(authUser);
+        storedUser =
+          JSON.parse(authUser);
       } else if (normalUser) {
-        storedUser = JSON.parse(normalUser);
+        storedUser =
+          JSON.parse(normalUser);
       }
 
       if (storedUser) {
         const userName =
           storedUser.username ||
           storedUser.name ||
-          storedUser.email?.split("@")[0] ||
-          storedUser.user?.username ||
+          storedUser.email?.split(
+            "@"
+          )[0] ||
+          storedUser.user
+            ?.username ||
           storedUser.user?.name ||
-          storedUser.user?.email?.split("@")[0];
+          storedUser.user?.email?.split(
+            "@"
+          )[0];
 
         setUser(userName || "User");
       } else {
@@ -135,17 +150,24 @@ export default function WelcomePage() {
       }
 
       const cart =
-        JSON.parse(localStorage.getItem("cart")) ||
-        [];
+        JSON.parse(
+          localStorage.getItem(
+            "cart"
+          )
+        ) || [];
 
       const wishlist =
         JSON.parse(
-          localStorage.getItem("wishlist")
+          localStorage.getItem(
+            "wishlist"
+          )
         ) || [];
 
       setCartCount(cart.length);
 
-      setWishlistCount(wishlist.length);
+      setWishlistCount(
+        wishlist.length
+      );
     } catch (error) {
       console.log(error);
 
@@ -188,15 +210,18 @@ export default function WelcomePage() {
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide(
-        (prev) => (prev + 1) % slides.length
-      );
-    }, 4000);
+    const interval =
+      setInterval(() => {
+        setCurrentSlide(
+          (prev) =>
+            (prev + 1) %
+            slides.length
+        );
+      }, 4000);
 
     return () =>
       clearInterval(interval);
-  }, []);
+  }, [slides.length]);
 
   useEffect(() => {
     const handleClickOutside = (
@@ -230,7 +255,9 @@ export default function WelcomePage() {
 
     dispatch(logout());
 
-    localStorage.removeItem("cart");
+    localStorage.removeItem(
+      "cart"
+    );
 
     localStorage.removeItem(
       "wishlist"
@@ -240,7 +267,9 @@ export default function WelcomePage() {
       "auth_user"
     );
 
-    localStorage.removeItem("user");
+    localStorage.removeItem(
+      "user"
+    );
 
     window.dispatchEvent(
       new Event("storage")
@@ -259,14 +288,18 @@ export default function WelcomePage() {
 
   const nextSlide = () => {
     setCurrentSlide(
-      (prev) => (prev + 1) % slides.length
+      (prev) =>
+        (prev + 1) %
+        slides.length
     );
   };
 
   const prevSlide = () => {
     setCurrentSlide(
       (prev) =>
-        (prev - 1 + slides.length) %
+        (prev -
+          1 +
+          slides.length) %
         slides.length
     );
   };
@@ -276,18 +309,14 @@ export default function WelcomePage() {
       <header className="wp-topbar">
         <div
           className="wp-logo"
-          onClick={() => navigate("/")}
+          onClick={() =>
+            navigate("/")
+          }
         >
           ShopSphere
         </div>
 
-        <div className="wp-location">
-          <FaMapMarkerAlt />
-
-          <span>
-            Enable Location Access
-          </span>
-        </div>
+        <LocationAccess />
 
         <input
           className="wp-search"
@@ -321,7 +350,9 @@ export default function WelcomePage() {
                 <div className="wp-dropdown">
                   <div
                     onClick={() =>
-                      navigate("/account")
+                      navigate(
+                        "/account"
+                      )
                     }
                   >
                     <FaUser />
@@ -330,7 +361,9 @@ export default function WelcomePage() {
 
                   <div
                     onClick={() =>
-                      navigate("/profile")
+                      navigate(
+                        "/profile"
+                      )
                     }
                   >
                     <FaUserCircle />
@@ -339,7 +372,9 @@ export default function WelcomePage() {
 
                   <div
                     onClick={() =>
-                      navigate("/orders")
+                      navigate(
+                        "/orders"
+                      )
                     }
                   >
                     <FaBox />
@@ -348,7 +383,9 @@ export default function WelcomePage() {
 
                   <div
                     onClick={() =>
-                      navigate("/wishlist")
+                      navigate(
+                        "/wishlist"
+                      )
                     }
                   >
                     <FaHeart />
@@ -366,15 +403,20 @@ export default function WelcomePage() {
 
                   <div
                     onClick={() =>
-                      navigate("/cart")
+                      navigate(
+                        "/cart"
+                      )
                     }
                   >
                     <FaShoppingCart />
                     My Cart
 
-                    {cartCount > 0 && (
+                    {cartCount >
+                      0 && (
                       <span className="dropdown-cart-count">
-                        {cartCount}
+                        {
+                          cartCount
+                        }
                       </span>
                     )}
                   </div>
@@ -404,27 +446,34 @@ export default function WelcomePage() {
         </div>
       </header>
 
-     <div className="welcome-categories">
-  {categories.map((cat, index) => (
-    <div
-      key={index}
-      className={`welcome-category-item ${
-        selectedCategory === cat.slug
-          ? "active"
-          : ""
-      }`}
-      onClick={() =>
-        setSelectedCategory(cat.slug)
-      }
-    >
-      <div className="welcome-category-icon">
-        {cat.icon}
-      </div>
+      <div className="welcome-categories">
+        {categories.map(
+          (cat, index) => (
+            <div
+              key={index}
+              className={`welcome-category-item ${
+                selectedCategory ===
+                cat.slug
+                  ? "active"
+                  : ""
+              }`}
+              onClick={() =>
+                setSelectedCategory(
+                  cat.slug
+                )
+              }
+            >
+              <div className="welcome-category-icon">
+                {cat.icon}
+              </div>
 
-      <span>{cat.name}</span>
-    </div>
-  ))}
-</div>
+              <span>
+                {cat.name}
+              </span>
+            </div>
+          )
+        )}
+      </div>
 
       <section
         className="wp-hero"
@@ -480,6 +529,10 @@ export default function WelcomePage() {
           selectedCategory
         }
       />
+
+      <BestSeller />    
+      <FeaturedDeals />
+
     </div>
   );
-}
+} 

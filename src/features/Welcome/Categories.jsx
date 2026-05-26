@@ -1,17 +1,22 @@
-import {useEffect,useRef,useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaStar, FaChevronLeft,FaChevronRight} from "react-icons/fa";
+import {FaStar,FaChevronLeft,FaChevronRight} from "react-icons/fa";
 import "./Categories.css";
+
 export default function Categories({
   selectedCategory
 }) {
   const navigate = useNavigate();
 
-  const [products, setProducts] =  useState([]);
+  const [products, setProducts] =
+    useState([]);
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] =
+    useState(0);
 
   const intervalRef = useRef(null);
+
+  const sectionRef = useRef(null);
 
   const CARD_WIDTH = 238;
 
@@ -22,12 +27,22 @@ export default function Categories({
   }, [selectedCategory]);
 
   useEffect(() => {
+    if (
+      selectedCategory &&
+      sectionRef.current
+    ) {
+      sectionRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  }, [selectedCategory]);
+
+  useEffect(() => {
     startAutoSlide();
 
-    return () => {
-      stopAutoSlide();
-    };
-  }, [products, currentIndex]);
+    return stopAutoSlide;
+  }, [products]);
 
   const fetchProducts = async (
     category
@@ -37,7 +52,8 @@ export default function Categories({
         `https://dummyjson.com/products/category/${category}`
       );
 
-      const data = await response.json();
+      const data =
+        await response.json();
 
       setProducts(
         data.products || []
@@ -94,7 +110,10 @@ export default function Categories({
   };
 
   return (
-    <div className="products-section">
+    <div
+      className="products-section"
+      ref={sectionRef}
+    >
       <div className="products-header">
         <div className="products-content">
           <span className="deal-badge">
@@ -120,7 +139,7 @@ export default function Categories({
               navigate("/home")
             }
           >
-         Explore Products
+            Explore Products
           </button>
         </div>
 

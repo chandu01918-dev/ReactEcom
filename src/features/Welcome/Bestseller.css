@@ -8,13 +8,13 @@
   width: 100%;
   padding: 60px 40px;
   background: #f8fafc;
+  overflow: hidden;
 }
 
 .bestSellerContainer {
   width: 100%;
   max-width: 1400px;
   margin: auto;
-
   display: flex;
   flex-direction: column;
   gap: 80px;
@@ -22,11 +22,9 @@
 
 .bestSellerCard {
   width: 100%;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   gap: 60px;
 }
 
@@ -36,21 +34,16 @@
 
 .imageSection {
   flex: 1;
-
+  width: 100%;
+  min-width: 0;
   height: 320px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   background: #ffffff;
-
   border-radius: 14px;
-
   overflow: hidden;
-
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-
   transition: 0.3s ease;
 }
 
@@ -61,11 +54,8 @@
 .imageSection img {
   width: 100%;
   height: 100%;
-
   object-fit: contain;
-
   padding: 20px;
-
   transition: 0.3s ease;
 }
 
@@ -75,85 +65,97 @@
 
 .contentSection {
   flex: 1;
+  width: 100%;
+  min-width: 0;
 }
 
 .tag {
   display: inline-block;
-
   background: #0f172a;
   color: #ffffff;
-
   padding: 6px 14px;
-
   border-radius: 20px;
-
   font-size: 11px;
   font-weight: 600;
-
   margin-bottom: 14px;
-
   text-transform: capitalize;
-
   letter-spacing: 0.5px;
 }
 
 .contentSection h2 {
   font-size: 48px;
   line-height: 1.2;
-
   color: #0f172a;
-
   margin-bottom: 18px;
+  word-break: break-word;
 }
 
 .contentSection p {
   font-size: 16px;
   line-height: 1.8;
-
   color: #475569;
-
   margin-bottom: 24px;
-
   max-width: 550px;
 }
 
 .contentSection button {
   border: none;
   outline: none;
-
   background: #2563eb;
   color: white;
-
   padding: 14px 28px;
-
   border-radius: 30px;
-
   font-size: 14px;
   font-weight: 600;
-
   cursor: pointer;
-
   transition: 0.3s ease;
-
   box-shadow: 0 6px 20px rgba(37, 99, 235, 0.25);
 }
 
 .contentSection button:hover {
   background: #1d4ed8;
-
   transform: translateY(-2px);
+}
+
+@media (max-width: 1200px) {
+  .bestSeller {
+    padding: 55px 30px;
+  }
+
+  .bestSellerCard {
+    gap: 40px;
+  }
+
+  .contentSection h2 {
+    font-size: 42px;
+  }
+
+  .imageSection {
+    height: 300px;
+  }
 }
 
 @media (max-width: 992px) {
   .bestSeller {
-    padding: 50px 25px;
+    padding: 50px 24px;
+  }
+
+  .bestSellerContainer {
+    gap: 70px;
   }
 
   .bestSellerCard,
   .bestSellerCard.reverse {
     flex-direction: column;
-
     text-align: center;
+    gap: 35px;
+  }
+
+  .contentSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
 
   .contentSection p {
@@ -168,11 +170,15 @@
   .contentSection h2 {
     font-size: 36px;
   }
+
+  .contentSection button {
+    min-width: 180px;
+  }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .bestSeller {
-    padding: 40px 18px;
+    padding: 45px 20px;
   }
 
   .bestSellerContainer {
@@ -184,7 +190,45 @@
   }
 
   .imageSection {
+    width: 100%;
+    height: 250px;
+    border-radius: 12px;
+  }
+
+  .contentSection h2 {
+    font-size: 32px;
+  }
+
+  .contentSection p {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .contentSection button {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 576px) {
+  .bestSeller {
+    padding: 40px 16px;
+  }
+
+  .bestSellerContainer {
+    gap: 50px;
+  }
+
+  .bestSellerCard {
+    gap: 24px;
+  }
+
+  .imageSection {
     height: 220px;
+  }
+
+  .imageSection img {
+    padding: 16px;
   }
 
   .contentSection h2 {
@@ -193,10 +237,101 @@
 
   .contentSection p {
     font-size: 14px;
-    line-height: 1.7;
   }
 
   .contentSection button {
     width: 100%;
+    padding: 13px 20px;
+  }
+}
+
+@media (max-width: 380px) {
+  .bestSeller {
+    padding: 32px 12px;
+  }
+
+  .bestSellerContainer {
+    gap: 40px;
+  }
+
+  .bestSellerCard {
+    gap: 20px;
+  }
+
+  .imageSection {
+    width: 100%;
+    height: 190px;
+    border-radius: 10px;
+  }
+
+  .imageSection img {
+    padding: 12px;
+  }
+
+  .tag {
+    font-size: 10px;
+    padding: 5px 12px;
+  }
+
+  .contentSection h2 {
+    font-size: 24px;
+    margin-bottom: 14px;
+  }
+
+  .contentSection p {
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .contentSection button {
+    width: 100%;
+    font-size: 13px;
+    padding: 12px 18px;
+  }
+}
+
+@media (max-width: 320px) {
+  .bestSeller {
+    padding: 28px 10px;
+  }
+
+  .bestSellerContainer {
+    gap: 32px;
+  }
+
+  .bestSellerCard {
+    gap: 18px;
+  }
+
+  .imageSection {
+    width: 100%;
+    height: 170px;
+  }
+
+  .imageSection img {
+    padding: 10px;
+  }
+
+  .tag {
+    font-size: 9px;
+    padding: 4px 10px;
+  }
+
+  .contentSection h2 {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  .contentSection p {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .contentSection button {
+    width: 100%;
+    font-size: 12px;
+    padding: 10px 16px;
+    border-radius: 24px;
   }
 }

@@ -25,7 +25,7 @@ export default function BestSeller() {
             }`}
             key={product.id}
           >
-            {/* IMAGE */}
+            
             <div className="imageSection">
               <img
                 src={product.thumbnail}
@@ -33,7 +33,7 @@ export default function BestSeller() {
               />
             </div>
 
-            {/* CONTENT */}
+            
             <div className="contentSection">
               <span className="tag">
                 {product.category}
